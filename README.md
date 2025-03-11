@@ -38,12 +38,13 @@ A proof-of-concept real estate matching system that crawls property listings, ma
 
 ```mermaid
 graph LR
-    A[Crawler Service<br/>Python] -->|Stores| B[(Database)]
+    A[Crawler Service<br/>Python] -->|Stores| B[(User & Crawler Database)]
     C[User Service<br/>Spring Boot] -->|Stores User Preferences| B
-    D[Realtor Service<br/>Spring Boot] -->|Stores Properties| B
-    E[Matching Engine<br/>Python] -->|Reads| B
-    E -->|Sends Matches| F[(Kafka)]
-    F -->|To be implemented| G[Email Service<br/>Spring Boot]
+    D[Realtor Service<br/>Spring Boot] -->|Stores Properties| E[(Realtor Database)]
+    B -->|Referenced by| F[Matching Engine<br/>Python]
+    E -->|Referenced by| F
+    F -->|Sends Matches| G[(Kafka)]
+    G -->|To be implemented| H[Email Service<br/>Spring Boot]
 ```
 
 ## Technical Stack
@@ -66,7 +67,7 @@ graph LR
 
 1. Clone the repository
 ```bash
-git clone [repository-url]
+git clone https://github.com/roshan-shaik-ml/POC-Project.git
 ```
 
 2. Setup Java Services (User & Realtor)
